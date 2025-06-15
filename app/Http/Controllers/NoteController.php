@@ -12,9 +12,9 @@ use Illuminate\Support\Str;
 
 class NoteController extends Controller
 {
-    public function index()
-    {
-        return Note::all();
+    public function index(){
+        $notes = NoteResource::collection($note = Note::with(['merchant', 'creator', 'assignee'])->paginate(10));
+        return inertia("Merchants/Notes", ['notes' => $notes]);
     }
 
     public function getMerchantNotes(Merchant $merchant)

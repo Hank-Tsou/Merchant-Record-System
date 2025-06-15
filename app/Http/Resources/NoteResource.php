@@ -21,10 +21,11 @@ class NoteResource extends JsonResource
             'body'        => $this->body,
             'type'        => $this->type,
             'status'      => $this->status,
-            'merchant'    => new MerchantResource($this->whenLoaded('merchant')),
-            'created_by'  => new UserResource($this->whenLoaded('creator')),
-            'assigned_to' => new UserResource($this->whenLoaded('assignee')),
+            'merchant'    => $this->whenLoaded('merchant', fn () => $this->merchant->name),
+            'created_by'  => $this->whenLoaded('creator', fn () => $this->creator->name),
+            'assigned_to' => $this->whenLoaded('assignee', fn () => $this->assignee->name),
             'created_at'  => $this->created_at->toFormattedDateString(),
+            'updated_at'  => $this->updated_at->toFormattedDateString(),
         ];
     }
 }

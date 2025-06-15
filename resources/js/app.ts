@@ -1,7 +1,6 @@
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/vue3';
-import axios from 'axios';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
@@ -9,7 +8,6 @@ import { ZiggyVue } from 'ziggy-js';
 import { initializeTheme } from './composables/useAppearance';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-axios.defaults.withCredentials = true;
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),

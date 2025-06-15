@@ -61,17 +61,17 @@
             </TableFooter>
         </Table>
     </AppLayout>
-    <NoteView ref="noteViewRef"></NoteView>
+    <ViewMerchantNotes ref="noteViewRef"></ViewMerchantNotes>
 </template>
 
 <script setup lang="ts">
-import NoteView from '@/components/assessment/NoteView.vue';
+import ViewMerchantNotes from '@/components/assessment/ViewMerchantNotes.vue';
 import { Button } from '@/components/ui/button';
 import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type User } from '@/types';
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { type BreadcrumbItem } from '@/types';
+import { Head, Link } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
 
 interface Merchant {
@@ -94,7 +94,7 @@ interface Props {
 }
 
 const isLoading = ref(true);
-const noteViewRef = ref<InstanceType<typeof NoteView> | null>(null);
+const noteViewRef = ref<InstanceType<typeof ViewMerchantNotes> | null>(null);
 
 const props = defineProps<Props>();
 
@@ -104,20 +104,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/merchant',
     },
 ];
-
-const page = usePage();
-const user = page.props.auth.user as User;
-
-const form = useForm({
-    name: user.name,
-    email: user.email,
-});
-
-const submit = () => {
-    form.patch(route('profile.update'), {
-        preserveScroll: true,
-    });
-};
 
 const viewNote = (_id: number) => {
     noteViewRef.value?.show(_id);

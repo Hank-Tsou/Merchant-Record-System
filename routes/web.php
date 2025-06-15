@@ -15,7 +15,9 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('merchant', [MerchantController::class, 'index'])->name('profile');
+    Route::get('merchant', [MerchantController::class, 'index'])->name('merchantProfile');
+    Route::get('notes', [NoteController::class, 'index'])->name('noteProfile');
+
     Route::get('/merchants/{merchant}/notes', [NoteController::class, 'getMerchantNotes'])->name('getMerchantNotes');
     Route::apiResource('notes', NoteController::class);
 });
