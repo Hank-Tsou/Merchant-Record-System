@@ -25,6 +25,7 @@ class StoreNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'merchantId' => ['required', 'exists:merchants,id'],
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string'],
             'type' => ['sometimes', Rule::in(array_column(NoteType::cases(), 'value'))],

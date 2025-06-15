@@ -58,24 +58,31 @@ import { defineExpose, ref } from 'vue';
 
 const showModal = ref(false);
 const editForm = ref({
+    merchantId: null as number | null,
     title: '',
     body: '',
     type: '',
     status: '',
 });
-
+const emits = defineEmits<{
+    (e: 'show', data: any): void;
+}>();
 const save = async () => {
+    console.log(editForm.value);
+
     try {
         await axios.post('/notes', editForm.value);
     } catch (err) {
         console.error(err);
     } finally {
-        console.log('Success');
+        emits('show', editForm.value.merchantId);
+        showModal.value = false;
     }
 };
 
 const resetEditForm = () => {
     editForm.value = {
+        merchantId: null,
         title: '',
         body: '',
         type: '',
@@ -88,8 +95,12 @@ const cancel = () => {
     resetEditForm();
 };
 
-const show = async () => {
+const show = async (_merchantId: number) => {
     resetEditForm();
+    editForm.value.merchantId = _merchantId;
+
+    console.log(editForm.value);
+
     showModal.value = true;
 };
 
