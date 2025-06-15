@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone')->nullable();
             $table->string('email')->unique()->nullable();
-            $table->boolean('two_factor_enabled')->default(false);
             $table->string('category')->nullable();
             $table->timestamps();
         });

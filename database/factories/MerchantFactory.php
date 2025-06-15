@@ -18,7 +18,7 @@ class MerchantFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->unique()->companyEmail,
             'two_factor_enabled' => $this->faker->boolean(20), // 20% chance enabled
-            'category' => $this->faker->randomElement(['restaurant', 'auto', 'retail', 'wholesale', 'pharmacyw']),
+            'category' => $this->faker->randomElement(['restaurant', 'auto', 'retail', 'wholesale', 'pharmacy']),
         ];
     }
 }

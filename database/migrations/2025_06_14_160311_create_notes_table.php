@@ -12,17 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notes', function (Blueprint $table) {
-            $table->foreignId('merchant_id')->constrained();
+            $table->foreignId('merchant_id')->constrained(); // note belongs to
             $table->foreignId('created_by')->constrained('users'); // user who wrote it
             $table->foreignId('assigned_to')->nullable()->constrained('users'); // optional assignee
 
             $table->id();
             $table->string('uid')->unique();
-            $table->string('title');
-            $table->text('body');
-
+            $table->string('title'); // note title
+            $table->text('body'); // note contents
             $table->string('type')->default('info'); // info, task, alert, etc.
-            $table->string('status')->default('open'); // open, closed, etc.
+            $table->string('status')->default('open'); // open, closed, in progress etc.
             $table->timestamps();
         });
     }
