@@ -3,11 +3,14 @@
         <DialogContent class="flex max-h-[600px] flex-col sm:max-w-[625px]">
             <DialogHeader class="flex-shrink-0">
                 <DialogTitle>Merchant Note List</DialogTitle>
-                <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
+                <div class="flex items-center justify-between">
+                    <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
+                    <NotePopFilter @search="search"></NotePopFilter>
+                </div>
             </DialogHeader>
 
             <!-- Scrollable notes container -->
-            <div class="mx-auto max-w-xl flex-1 overflow-y-auto p-4">
+            <div class="mx-auto w-full overflow-y-auto p-4">
                 <ul class="space-y-4">
                     <li v-for="(note, index) in notes" :key="note.id" class="rounded-lg border p-4 shadow-sm transition hover:shadow-md">
                         <div class="mb-4 flex items-center space-x-3">
@@ -75,7 +78,7 @@
         </DialogContent>
     </Dialog>
 
-    <AddNote ref="addNoteRef"></AddNote>
+    <AddNote ref="addNoteRef" @show="show"></AddNote>
     <ConfirmModal ref="confirmModalRef" @confirm="deleteNote"></ConfirmModal>
 </template>
 
@@ -83,6 +86,7 @@
 <script setup lang="ts">
 import AddNote from '@/components/assessment/AddNote.vue';
 import ConfirmModal from '@/components/assessment/ConfirmModal.vue';
+import NotePopFilter from '@/components/assessment/NotePopFilter.vue';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -97,6 +101,7 @@ const showModal = ref(false);
 const isLoading = ref(false);
 const notes = ref({} as any);
 const editNoteIndex = ref(-1);
+const merchantId = ref(-1);
 const editForm = ref({
     title: '',
     body: '',
@@ -171,15 +176,30 @@ const deleteNote = async (_id: number) => {
 };
 
 const showAddNote = () => {
-    addNoteRef.value?.show();
+    addNoteRef.value?.show(merchantId.value);
 };
 
-const show = async (merchantId: number) => {
+const show = async (_merchantId: number) => {
     showModal.value = true;
     isLoading.value = true;
+    merchantId.value = _merchantId;
     try {
-        const response = await axios.get(`/merchants/${merchantId}/notes`);
+        const response = await axios.get(`/merchants/${_merchantId}/notes`);
         notes.value = response.data.data;
+    } catch (err) {
+        console.error(err);
+    } finally {
+        isLoading.value = false;
+    }
+};
+
+const search = async (_data: any) => {
+    try {
+        const response = await axios.get(`/merchants/${merchantId.value}/notes`, {
+            params: _data,
+        });
+
+        notes.value = response.data.data; // no need `.data.data` if your controller returns directly
     } catch (err) {
         console.error(err);
     } finally {

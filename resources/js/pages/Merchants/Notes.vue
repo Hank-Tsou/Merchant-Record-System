@@ -2,6 +2,8 @@
     <AppLayout :breadcrumbs="breadcrumbs">
         <Head title="Merchant Lists" />
 
+        <NoteFilter class="mt-6 mb-6" :creators="props.creators" :filters="props.filters"></NoteFilter>
+
         <Table>
             <TableHeader>
                 <TableRow>
@@ -95,6 +97,7 @@
 </template>
 
 <script setup lang="ts">
+import NoteFilter from '@/components/assessment/NoteFilter.vue';
 import ViewNotes from '@/components/assessment/ViewNotes.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -102,6 +105,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationNext, Paginati
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
+import { Creator, NoteFilters } from '@/types/note';
 import { Head, Link } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
 
@@ -125,6 +129,8 @@ interface Props {
         meta: any;
         links: any;
     };
+    creators: Creator[];
+    filters: NoteFilters;
 }
 
 const isLoading = ref(true);
@@ -144,7 +150,6 @@ const viewNote = (_note: any) => {
 };
 
 onMounted(() => {
-    console.log(props.notes);
     isLoading.value = true;
 });
 </script>
