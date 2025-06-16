@@ -10,16 +10,31 @@ export enum NoteType {
     ALERT = 'alert',
 }
 
+export type NewForm = {
+    merchantId: number;
+    title: string;
+    body: string;
+    type: NoteType | '';
+    status: NoteStatus | '';
+};
+
+export type EditForm = {
+    title: string;
+    body: string;
+    type: NoteType | '';
+    status: NoteStatus | '';
+};
+
 // Interface for a note
 export interface Note {
     id: number;
+    uid: string;
     title: string;
     body: string;
     status: NoteStatus;
     type: NoteType;
     created_by: string;
-    assigned_to?: string;
-    merchant_id?: number;
+    updated_by: string;
 }
 
 export interface NoteFilters {
