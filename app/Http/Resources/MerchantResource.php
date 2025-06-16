@@ -21,10 +21,8 @@ class MerchantResource extends JsonResource
             'phone'    => $this->phone,
             'email'    => $this->email,
             'category' => $this->category,
-            'two_factor_enabled' => $this->two_factor_enabled,
             'has_notes' => $this->notes->count(),
             'created_at' => $this->created_at,
         ];
     }
-
 }

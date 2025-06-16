@@ -18,8 +18,6 @@ class Merchant extends Model
         'category',
     ];
 
-//    protected $with = ['notes'];
-
     public function notes()
     {
         return $this->hasMany(Note::class);
