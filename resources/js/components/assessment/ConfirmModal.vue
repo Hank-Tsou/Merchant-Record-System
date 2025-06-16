@@ -16,7 +16,6 @@
     </Dialog>
 </template>
 
-<!-- MyDialog.vue -->
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -35,28 +34,27 @@ const emits = defineEmits<{
 
 const confirm = () => {
     emits('confirm', modalInfo.value.identifier);
-    showModal.value = false;
 };
 
 const cancel = () => {
-    resetInfo();
+    modalInfo.value.title = '';
+    modalInfo.value.contents = '';
     showModal.value = false;
 };
 
-const resetInfo = () => {
-    modalInfo.value.title = '';
-    modalInfo.value.contents = '';
-};
-
-const show = async (_title: string, _content: string, _identifier: number) => {
-    modalInfo.value.identifier = _identifier;
-    modalInfo.value.title = _title;
-    modalInfo.value.contents = _content;
+const show = async (title: string, content: string, identifier: number) => {
+    modalInfo.value.identifier = identifier;
+    modalInfo.value.title = title;
+    modalInfo.value.contents = content;
     showModal.value = true;
 };
 
-// Expose the dialog control to parent
+const hide = () => {
+    showModal.value = false;
+};
+
 defineExpose({
     show,
+    hide,
 });
 </script>

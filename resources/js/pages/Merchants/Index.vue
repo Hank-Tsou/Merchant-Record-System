@@ -5,34 +5,42 @@
         <Table>
             <TableHeader>
                 <TableRow>
-                    <TableHead className="w-[100px]">ID</TableHead>
+                    <TableHead>ID</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Category</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead>Phone</TableHead>
-                    <TableHead>Two FA</TableHead>
                     <TableHead>Note</TableHead>
                     <TableHead>Action</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow v-for="(item, index) in merchants.data" :key="index">
-                    <TableCell className="font-medium">{{ item.id }}</TableCell>
-                    <TableCell>{{ item.name }}</TableCell>
-                    <TableCell>{{ item.category }}</TableCell>
-                    <TableCell>{{ item.email }}</TableCell>
-                    <TableCell>{{ item.phone }}</TableCell>
-                    <TableCell>{{ item.two_factor_enabled }}</TableCell>
-                    <TableCell>{{ item.has_notes }}</TableCell>
+                <TableRow v-for="(merchant, index) in merchants.data" :key="index" class="hover:bg-gray-100">
+                    <TableCell>{{ merchant.id }}</TableCell>
+                    <TableCell>{{ merchant.name }}</TableCell>
+                    <TableCell>{{ merchant.category }}</TableCell>
+                    <TableCell>{{ merchant.email }}</TableCell>
+                    <TableCell>{{ merchant.phone }}</TableCell>
+                    <TableCell
+                        ><Badge
+                            :class="[
+                                'rounded px-2 py-1 text-xs font-semibold',
+                                merchant.has_notes > 0 ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600',
+                            ]"
+                        >
+                            {{ merchant.has_notes }}
+                        </Badge></TableCell
+                    >
                     <TableCell>
-                        <Button class="cursor-pointer" variant="secondary" @click="viewNote(item.id)">View</Button>
+                        <!-- View merchant notes -->
+                        <Button class="cursor-pointer" variant="secondary" @click="viewNote(merchant.id)">View</Button>
                     </TableCell>
                 </TableRow>
             </TableBody>
 
-            <TableFooter>
+            <TableFooter class="bg-blue-100">
                 <TableRow>
-                    <TableCell :colspan="5" class="text-center">
+                    <TableCell :colspan="7" class="text-center">
                         <Pagination
                             :items-per-page="props.merchants.meta.per_page"
                             :total="props.merchants.meta.total"
@@ -61,42 +69,21 @@
             </TableFooter>
         </Table>
     </AppLayout>
-    <ViewMerchantNotes ref="noteViewRef"></ViewMerchantNotes>
+
+    <ViewMerchantNotes ref="noteViewRef" />
 </template>
 
 <script setup lang="ts">
 import ViewMerchantNotes from '@/components/assessment/ViewMerchantNotes.vue';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
+import { IMerchantProps } from '@/types/merchant';
 import { Head, Link } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
-
-interface Merchant {
-    id: number;
-    uid: string;
-    name: string;
-    phone?: string;
-    email?: string;
-    category?: string;
-    has_notes: number;
-    two_factor_enabled: boolean;
-}
-
-interface Props {
-    merchants: {
-        data: Merchant[];
-        meta: any;
-        links: any;
-    };
-}
-
-const isLoading = ref(true);
-const noteViewRef = ref<InstanceType<typeof ViewMerchantNotes> | null>(null);
-
-const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -105,8 +92,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const viewNote = (_id: number) => {
-    noteViewRef.value?.show(_id);
+const isLoading = ref(true);
+const props = defineProps<IMerchantProps>();
+const noteViewRef = ref<InstanceType<typeof ViewMerchantNotes> | null>(null);
+
+const viewNote = (merchantId: number) => {
+    noteViewRef.value?.show(merchantId);
 };
 
 onMounted(() => {
