@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
         // Optionally create a known user for login testing
         User::factory()->create([
             'name' => 'Admin User',
-            'email' => 'admin@google.com',
-            'password' => Hash::make('password'),
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('admin'),
         ]);
     }
 }
