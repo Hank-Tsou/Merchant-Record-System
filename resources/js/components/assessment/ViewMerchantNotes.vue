@@ -168,7 +168,7 @@ const saveEdit = async (note: any) => {
     try {
         await axios.put(`/notes/${note.id}`, editForm.value);
     } catch (err) {
-        console.error(err);
+        messagePromptRef.value?.show(undefined, err.response?.data?.message);
     } finally {
         note.title = editForm.value.title;
         note.body = editForm.value.body;
@@ -198,7 +198,7 @@ const search = async (_data: any) => {
 
         notes.value = response.data.data;
     } catch (err) {
-        console.error(err);
+        messagePromptRef.value?.show(undefined, err.response?.data?.message);
     } finally {
         isLoading.value = false;
     }
@@ -222,7 +222,7 @@ const show = async (_merchantId: number) => {
         const response = await axios.get(`/merchants/${_merchantId}/notes`);
         notes.value = response.data.data;
     } catch (err) {
-        console.error(err);
+        messagePromptRef.value?.show(undefined, err.response?.data?.message);
     } finally {
         isLoading.value = false;
     }
