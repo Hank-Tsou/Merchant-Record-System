@@ -40,9 +40,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     <li class="flex items-center"><Check class="me-2" color="#198754" /> Seed merchant & note</li>
                                     <li class="flex items-center"><Check class="me-2" color="#198754" /> Eloquent CRUD operation</li>
                                     <li class="flex items-center"><Check class="me-2" color="#198754" /> List notes for merchant</li>
-                                    <li class="flex items-center"><Check class="me-2" color="#198754" /> Create note</li>
-                                    <li class="flex items-center"><Check class="me-2" color="#198754" /> Update note</li>
-                                    <li class="flex items-center"><Check class="me-2" color="#198754" /> Delete note</li>
+                                    <li class="flex items-center"><Check class="me-2" color="#198754" /> CRUD note</li>
                                 </ul>
 
                                 <!-- Extra -->
@@ -50,6 +48,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <ul class="space-y-3 text-gray-700 dark:text-gray-300">
                                     <li class="flex items-center"><Check class="me-2" color="#198754" />Documentation</li>
                                     <li class="flex items-center"><Check class="me-2" color="#198754" />Notes List</li>
+                                    <li class="flex items-center"><Check class="me-2" color="#198754" />Pest Test</li>
                                 </ul>
                             </div>
 
