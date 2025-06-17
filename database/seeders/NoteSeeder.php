@@ -19,12 +19,8 @@ class NoteSeeder extends Seeder
         $merchants = Merchant::all();
 
         foreach ($merchants as $merchant) {
-            // Randomly skip 20% of merchants
-            if (mt_rand(1, 100) <= 30) {
-                continue;
-            }
-
-            Note::factory()->count(3)->create([
+            $noteCount = mt_rand(0, 5);
+            Note::factory()->count($noteCount)->create([
                 'merchant_id' => $merchant->id,
                 'created_by' => $users->random()->id,
                 'assigned_to' => rand(0, 1) ? $users->random()->id : null,

@@ -13,6 +13,6 @@ class MerchantSeeder extends Seeder
      */
     public function run(): void
     {
-        Merchant::factory()->count(12)->create();
+        Merchant::factory()->count(15)->create();
     }
 }

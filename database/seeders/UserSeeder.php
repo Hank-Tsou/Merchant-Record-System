@@ -14,9 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(5)->create();
+        User::factory()->count(10)->create();
 
-        // Optionally create a known user for login testing
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@admin.com',
