@@ -2,7 +2,7 @@
     <AppLayout :breadcrumbs="breadcrumbs">
         <Head title="Merchant Lists" />
 
-        <NoteFilter class="mt-6 mb-6" :creators="props.creators" :filters="props.filters"></NoteFilter>
+        <NoteFilter class="ps-6 pe-6 pt-8 pb-2" :creators="props.creators" :filters="props.filters"></NoteFilter>
 
         <Table>
             <TableHeader>
@@ -62,9 +62,9 @@
                 </TableRow>
             </TableBody>
 
-            <TableFooter>
+            <TableFooter class="bg-blue-100">
                 <TableRow>
-                    <TableCell :colspan="5" class="text-center">
+                    <TableCell :colspan="8" class="text-center">
                         <Pagination
                             :items-per-page="props.notes.meta.per_page"
                             :total="props.notes.meta.total"
@@ -105,38 +105,9 @@ import { Pagination, PaginationContent, PaginationItem, PaginationNext, Paginati
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Creator, NoteFilters } from '@/types/note';
+import { NoteList } from '@/types/note';
 import { Head, Link } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
-
-interface Note {
-    id: number;
-    uid: string;
-    title: string;
-    body: string;
-    type: string;
-    status: string;
-    merchant: string;
-    created_by: string;
-    assign_to: string;
-    created_at: string;
-    updated_at: string;
-}
-
-interface Props {
-    notes: {
-        data: Note[];
-        meta: any;
-        links: any;
-    };
-    creators: Creator[];
-    filters: NoteFilters;
-}
-
-const isLoading = ref(true);
-const viewNoteRef = ref<InstanceType<typeof ViewNotes> | null>(null);
-
-const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -145,8 +116,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const viewNote = (_note: any) => {
-    viewNoteRef.value?.show(_note);
+const props = defineProps<NoteList>();
+const isLoading = ref(true);
+const viewNoteRef = ref<InstanceType<typeof ViewNotes> | null>(null);
+
+const viewNote = (note: any) => {
+    viewNoteRef.value?.show(note);
 };
 
 onMounted(() => {

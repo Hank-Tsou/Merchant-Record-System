@@ -198,11 +198,11 @@ const deleteNote = async (noteId: number) => {
     try {
         await axios.delete(`/notes/${noteId}`);
         notes.value = notes.value.filter((note: any) => note.id !== noteId);
+        router.reload();
     } catch (err) {
         messagePromptRef.value?.show(undefined, err.response?.data?.message);
     } finally {
         confirmModalRef.value?.hide();
-        router.reload();
     }
 };
 

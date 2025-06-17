@@ -2,12 +2,11 @@
 
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\NoteController;
-use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return redirect()->route('login');
 })->name('home');
 
 Route::get('dashboard', function () {

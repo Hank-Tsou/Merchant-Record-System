@@ -35,6 +35,17 @@ export interface Note {
     type: NoteType;
     created_by: string;
     updated_at: string;
+    merchant: string;
+}
+
+export interface NoteList {
+    notes: {
+        data: Note[];
+        meta: any;
+        links: any;
+    };
+    creators: Creator[];
+    filters: NoteFilters;
 }
 
 export interface NoteFilters {

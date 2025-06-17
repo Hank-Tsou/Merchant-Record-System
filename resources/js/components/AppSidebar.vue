@@ -6,7 +6,6 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
-import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
@@ -35,8 +34,9 @@ const footerNavItems: NavItem[] = [];
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="route('dashboard')">
-                            <AppLogo />
+                        <Link :href="route('dashboard')" class="mt-2 mb-4 flex justify-center">
+                            <img class="h-auto w-40" src="/images/Quantum-ePay-Full-Color-Light.png.webp" alt="Logo" />
+                            <!--<AppLogo />-->
                         </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

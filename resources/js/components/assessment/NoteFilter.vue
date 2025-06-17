@@ -1,7 +1,7 @@
 <template>
     <div class="flex space-x-3">
         <div class="relative items-center">
-            <Input id="search" type="text" placeholder="Search Text..." class="pl-10" v-model="form.search" />
+            <Input id="search" type="text" placeholder="Search Text ..." class="pl-10" v-model="form.search" />
             <span class="absolute inset-y-0 start-0 flex items-center justify-center px-2">
                 <Search class="size-6 text-muted-foreground" />
             </span>
