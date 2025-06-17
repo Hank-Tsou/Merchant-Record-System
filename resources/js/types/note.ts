@@ -34,7 +34,7 @@ export interface Note {
     status: NoteStatus;
     type: NoteType;
     created_by: string;
-    updated_by: string;
+    updated_at: string;
 }
 
 export interface NoteFilters {

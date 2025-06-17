@@ -12,57 +12,69 @@
             <!-- Scrollable notes container -->
             <div class="mx-auto w-full overflow-y-auto p-4">
                 <ul class="space-y-4">
-                    <li v-for="(note, index) in notes" :key="note.id" class="rounded-lg border p-4 shadow-sm transition hover:shadow-md">
-                        <div class="mb-4 flex items-center space-x-3">
-                            <!--------------->
-                            <!-- Note Type -->
-                            <!--------------->
-                            <DropdownMenu v-if="editNoteIndex === index">
-                                <DropdownMenuTrigger class="rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
-                                    {{ editForm.type || 'Select type' }}
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem @click="editForm.type = NoteType.INFO">Info</DropdownMenuItem>
-                                    <DropdownMenuItem @click="editForm.type = NoteType.TASK">Task</DropdownMenuItem>
-                                    <DropdownMenuItem @click="editForm.type = NoteType.ALERT">Alert</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                            <span
-                                v-else
-                                class="rounded px-2 py-1 text-xs font-semibold uppercase"
-                                :class="{
-                                    'border border-green-300 bg-green-100 text-green-800': note.type === 'info',
-                                    'border border-blue-300 bg-blue-100 text-blue-800': note.type === 'task',
-                                    'border border-red-300 bg-red-100 text-red-800': note.type === 'alert',
-                                }"
-                            >
-                                {{ note.type }}
-                            </span>
+                    <li
+                        v-for="(note, index) in notes"
+                        :key="note.id"
+                        class="rounded-lg border p-4"
+                        style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px"
+                    >
+                        <div class="mb-4 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <!--------------->
+                                <!-- Note Type -->
+                                <!--------------->
+                                <DropdownMenu v-if="editNoteIndex === index">
+                                    <DropdownMenuTrigger class="rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
+                                        {{ editForm.type || 'Select type' }}
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuItem @click="editForm.type = NoteType.INFO">Info</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.type = NoteType.TASK">Task</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.type = NoteType.ALERT">Alert</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                                <span
+                                    v-else
+                                    class="rounded px-2 py-1 text-xs font-semibold uppercase"
+                                    :class="{
+                                        'border border-green-300 bg-green-100 text-green-800': note.type === 'info',
+                                        'border border-blue-300 bg-blue-100 text-blue-800': note.type === 'task',
+                                        'border border-red-300 bg-red-100 text-red-800': note.type === 'alert',
+                                    }"
+                                >
+                                    {{ note.type }}
+                                </span>
 
-                            <!----------------->
-                            <!-- Note Status -->
-                            <!----------------->
-                            <DropdownMenu v-if="editNoteIndex === index">
-                                <DropdownMenuTrigger class="rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
-                                    {{ editForm.status || 'Select status' }}
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem @click="editForm.status = NoteStatus.OPEN">Open</DropdownMenuItem>
-                                    <DropdownMenuItem @click="editForm.status = NoteStatus.CLOSED">Closed</DropdownMenuItem>
-                                    <DropdownMenuItem @click="editForm.status = NoteStatus.IN_PROGRESS">In Progress</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                            <span
-                                v-else
-                                class="rounded px-2 py-1 text-xs font-semibold uppercase"
-                                :class="{
-                                    'bg-green-100 text-green-800': note.status === 'open',
-                                    'bg-gray-300 text-gray-800': note.status === 'closed',
-                                    'bg-blue-100 text-blue-800': note.status === 'in_progress',
-                                }"
-                            >
-                                {{ note.status }}
-                            </span>
+                                <!----------------->
+                                <!-- Note Status -->
+                                <!----------------->
+                                <DropdownMenu v-if="editNoteIndex === index">
+                                    <DropdownMenuTrigger class="rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
+                                        {{ editForm.status || 'Select status' }}
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuItem @click="editForm.status = NoteStatus.OPEN">Open</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.status = NoteStatus.CLOSED">Closed</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.status = NoteStatus.IN_PROGRESS">In Progress</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                                <span
+                                    v-else
+                                    class="rounded px-2 py-1 text-xs font-semibold uppercase"
+                                    :class="{
+                                        'bg-green-100 text-green-800': note.status === 'open',
+                                        'bg-gray-300 text-gray-800': note.status === 'closed',
+                                        'bg-blue-100 text-blue-800': note.status === 'in_progress',
+                                    }"
+                                >
+                                    {{ note.status }}
+                                </span>
+                            </div>
+
+                            <div class="flex items-center">
+                                <UserPen :size="12" class="h-5 w-5 rounded-full bg-gray-200" />
+                                <span class="ms-3 flex text-sm">{{ note.created_by }}</span>
+                            </div>
                         </div>
 
                         <!---------------->
@@ -71,7 +83,10 @@
                         <div v-if="editNoteIndex === index" class="w-100% mb-4">
                             <Input v-model="editForm.title" />
                         </div>
-                        <h3 v-else class="mb-4 text-lg font-semibold text-gray-800">{{ note.title }}</h3>
+                        <div v-else class="mb-4 flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">{{ note.title }}</h3>
+                            <span class="text-sm text-gray-500">Last Update: {{ note.updated_at }}</span>
+                        </div>
 
                         <!---------------->
                         <!-- Note Body -->
@@ -126,6 +141,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { EditForm, Note, NoteStatus, NoteType } from '@/types/note';
 import { router } from '@inertiajs/vue3';
 import axios from 'axios';
+import { UserPen } from 'lucide-vue-next';
 import { defineExpose, ref } from 'vue';
 
 const addNoteRef = ref<InstanceType<typeof AddNote> | null>(null);
@@ -190,26 +206,25 @@ const deleteNote = async (noteId: number) => {
     }
 };
 
-const search = async (_data: any) => {
-    try {
-        const response = await axios.get(`/merchants/${merchantId.value}/notes`, {
-            params: _data,
-        });
-
-        notes.value = response.data.data;
-    } catch (err) {
-        messagePromptRef.value?.show(undefined, err.response?.data?.message);
-    } finally {
-        isLoading.value = false;
-    }
-};
-
 const showAddNote = () => {
     addNoteRef.value?.show(merchantId.value);
 };
 
 const showConfirm = (note: any) => {
     confirmModalRef.value?.show('Are you sure you want to delete.', note.title, note.id);
+};
+
+const search = async (_data: any) => {
+    try {
+        const response = await axios.get(`/merchants/${merchantId.value}/notes`, {
+            params: _data,
+        });
+        notes.value = response.data.data;
+    } catch (err) {
+        messagePromptRef.value?.show(undefined, err.response?.data?.message);
+    } finally {
+        isLoading.value = false;
+    }
 };
 
 const show = async (_merchantId: number) => {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Note\FilterNoteRequest;
 use App\Http\Requests\Note\StoreNoteRequest;
 use App\Http\Requests\Note\UpdateNoteRequest;
 use App\Http\Resources\NoteResource;
@@ -51,9 +52,9 @@ class NoteController extends Controller
         return inertia("Merchants/Notes", ['notes' => $notes, 'creators' => $creators, 'filters' => $request->all()]);
     }
 
-    public function getMerchantNotes(Request $request, Merchant $merchant)
+    public function getMerchantNotes(FilterNoteRequest $request, Merchant $merchant)
     {
-        $query = $merchant->notes();
+        $query = $merchant->notes()->with(['creator']);;
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {

@@ -1,17 +1,31 @@
 <template>
     <Popover v-model:open="show">
-        <PopoverTrigger as-child>
-            <Button variant="outline"> <AlignJustify /> Filter </Button>
+        <PopoverTrigger
+            class="rounded-md"
+            style="
+                box-shadow:
+                    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+                    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+            "
+        >
+            <Button variant="outline" class="cursor-pointer"> <AlignJustify /> Filter </Button>
         </PopoverTrigger>
-        <PopoverContent class="w-80">
-            <div class="relative items-center">
+        <PopoverContent
+            class="w-80 bg-gray-50"
+            style="
+                box-shadow:
+                    rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+                    rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+            "
+        >
+            <div class="relative mb-3 items-center">
                 <Input id="search" type="text" placeholder="Search Text..." class="pl-10" v-model="form.search" />
                 <span class="absolute inset-y-0 start-0 flex items-center justify-center px-2">
                     <Search class="size-6 text-muted-foreground" />
                 </span>
             </div>
             <Select v-model="form.type">
-                <SelectTrigger class="w-[180px]">
+                <SelectTrigger class="mb-3 w-full">
                     <SelectValue placeholder="Select Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -23,7 +37,7 @@
             </Select>
 
             <Select v-model="form.status">
-                <SelectTrigger class="w-[180px]">
+                <SelectTrigger class="mb-3 w-full">
                     <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -61,8 +75,10 @@
                 </PopoverContent>
             </Popover>
 
-            <Button class="cursor-pointer" @click="search" variant="secondary">Search</Button>
-            <Button class="cursor-pointer" @click="clear" variant="destructive">Clear</Button>
+            <div class="mt-6 flex justify-end space-x-3">
+                <Button class="cursor-pointer" @click="clear" variant="destructive">Clear</Button>
+                <Button class="cursor-pointer" @click="search" variant="secondary">Search</Button>
+            </div>
         </PopoverContent>
     </Popover>
 </template>
