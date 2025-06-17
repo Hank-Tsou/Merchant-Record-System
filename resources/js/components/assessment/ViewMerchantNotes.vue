@@ -24,13 +24,15 @@
                                 <!-- Note Type -->
                                 <!--------------->
                                 <DropdownMenu v-if="editNoteIndex === index">
-                                    <DropdownMenuTrigger class="rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
-                                        {{ editForm.type || 'Select type' }}
+                                    <DropdownMenuTrigger class="w-25 rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
+                                        <span class="flex items-center justify-between"
+                                            >{{ editForm.type || 'Select type' }}<ChevronDown class="ms-3"
+                                        /></span>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
-                                        <DropdownMenuItem @click="editForm.type = NoteType.INFO">Info</DropdownMenuItem>
-                                        <DropdownMenuItem @click="editForm.type = NoteType.TASK">Task</DropdownMenuItem>
-                                        <DropdownMenuItem @click="editForm.type = NoteType.ALERT">Alert</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.type = NoteType.INFO" class="cursor-pointer">Info</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.type = NoteType.TASK" class="cursor-pointer">Task</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.type = NoteType.ALERT" class="cursor-pointer">Alert</DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
                                 <span
@@ -49,13 +51,19 @@
                                 <!-- Note Status -->
                                 <!----------------->
                                 <DropdownMenu v-if="editNoteIndex === index">
-                                    <DropdownMenuTrigger class="rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
-                                        {{ editForm.status || 'Select status' }}
+                                    <DropdownMenuTrigger class="w-35 rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
+                                        <span class="flex items-center justify-between"
+                                            >{{ editForm.status || 'Select status' }}<ChevronDown class="ms-3"
+                                        /></span>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
-                                        <DropdownMenuItem @click="editForm.status = NoteStatus.OPEN">Open</DropdownMenuItem>
-                                        <DropdownMenuItem @click="editForm.status = NoteStatus.CLOSED">Closed</DropdownMenuItem>
-                                        <DropdownMenuItem @click="editForm.status = NoteStatus.IN_PROGRESS">In Progress</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.status = NoteStatus.OPEN" class="cursor-pointer">Open</DropdownMenuItem>
+                                        <DropdownMenuItem @click="editForm.status = NoteStatus.CLOSED" class="cursor-pointer"
+                                            >Closed</DropdownMenuItem
+                                        >
+                                        <DropdownMenuItem @click="editForm.status = NoteStatus.IN_PROGRESS" class="cursor-pointer"
+                                            >In Progress</DropdownMenuItem
+                                        >
                                     </DropdownMenuContent>
                                 </DropdownMenu>
                                 <span
@@ -141,7 +149,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { EditForm, Note, NoteStatus, NoteType } from '@/types/note';
 import { router } from '@inertiajs/vue3';
 import axios from 'axios';
-import { UserPen } from 'lucide-vue-next';
+import { ChevronDown, UserPen } from 'lucide-vue-next';
 import { defineExpose, ref } from 'vue';
 
 const addNoteRef = ref<InstanceType<typeof AddNote> | null>(null);
