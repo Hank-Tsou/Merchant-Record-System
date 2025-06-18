@@ -3,7 +3,7 @@
 <div align="center">
 
 <h3 align="center">Merchant Note Project</h3>
-
+  <p>This project is built on the Laravel Vue starter kit.</p>
   <p align="center">
     <br />
     <a href="https://fluttering-mountain-f82.notion.site/Assessment-Documentation-213c56aa362b80c29dd5ce69e6498bf0"><strong>Explore the documentation »</strong></a>
