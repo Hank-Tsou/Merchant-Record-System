@@ -7,10 +7,10 @@
   <p align="center">
     An awesome README template to jumpstart your projects!
     <br />
-    <a href="https://fluttering-mountain-f82.notion.site/Assessment-Documentation-213c56aa362b80c29dd5ce69e6498bf0"><strong>Explore the docs »</strong></a>
+    <a href="https://fluttering-mountain-f82.notion.site/Assessment-Documentation-213c56aa362b80c29dd5ce69e6498bf0"><strong>Explore the documentation »</strong></a>
     <br />
     <br />
-    <a href="https://merchant-record-system-main-xztxnx.laravel.cloud/login">View Demo</a>
+    <a href="https://merchant-record-system-main-xztxnx.laravel.cloud/login">View Demo on Laravel Cloud</a>
   </p>
 </div>
 
@@ -64,8 +64,8 @@
    ```sh
    composer install
    ```
-5. Docker-based Database Setup (Optional)<br />
-   The docker-compose.yml file is located at: Merchant-Record-System / docker-compose.yml
+5. (Optional) Docker-based Database Setup<br />
+   The docker-compose.yml file is located at: Merchant-Record-System / docker-compose.yml<br />
    ```sh
    docker-compose up -d
    ```
@@ -76,8 +76,7 @@
 
 ### Configuration
 
-1. Environment Variables<br />
-   Copy .env.example to .env:
+1. Environment Variables ( Copy .env.example to .env )
    ```sh
    cp .env.example .env
    ```
@@ -109,7 +108,7 @@
    
 ### Usage
 
-1. Database migration
+1. Run App
    ```sh
    composer run dev
    ```
