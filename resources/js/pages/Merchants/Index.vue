@@ -46,21 +46,21 @@
                             :total="props.merchants.meta.total"
                             :default-page="props.merchants.meta.current_page"
                         >
-                            <PaginationContent v-slot="{ items }">
+                            <PaginationContent v-slot="{}">
                                 <Link v-if="props.merchants.links.prev" :href="props.merchants.links.prev" preserve-scroll>
-                                    <PaginationPrevious />
+                                    <PaginationPrevious class="cursor-pointer" />
                                 </Link>
 
                                 <template v-for="(link, index) in props.merchants.meta.links" :key="index">
                                     <Link v-if="Number(link.label)" :href="link.url" preserve-scroll>
-                                        <PaginationItem :value="Number(link.label)" :is-active="link.active">
+                                        <PaginationItem class="cursor-pointer" :value="Number(link.label)" :is-active="link.active">
                                             {{ link.label }}
                                         </PaginationItem>
                                     </Link>
                                 </template>
 
                                 <Link v-if="props.merchants.links.next" :href="props.merchants.links.next" preserve-scroll>
-                                    <PaginationNext />
+                                    <PaginationNext class="cursor-pointer" />
                                 </Link>
                             </PaginationContent>
                         </Pagination>

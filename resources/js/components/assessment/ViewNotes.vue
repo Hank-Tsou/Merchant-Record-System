@@ -14,8 +14,10 @@
                         <!-- Note Type -->
                         <!--------------->
                         <DropdownMenu v-if="editNote">
-                            <DropdownMenuTrigger class="rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
-                                {{ editForm.type || 'Select type' }}
+                            <DropdownMenuTrigger class="w-25 rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
+                                <span class="flex items-center justify-between"
+                                    >{{ editForm.type || 'Select type' }}<ChevronDown class="ms-3"
+                                /></span>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem @click="editForm.type = NoteType.INFO">Info</DropdownMenuItem>
@@ -39,8 +41,10 @@
                         <!-- Note Status -->
                         <!----------------->
                         <DropdownMenu v-if="editNote">
-                            <DropdownMenuTrigger class="rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
-                                {{ editForm.status || 'Select status' }}
+                            <DropdownMenuTrigger class="w-35 rounded bg-gray-200 px-3 py-1 text-gray-800 hover:bg-gray-400">
+                                <span class="flex items-center justify-between"
+                                    >{{ editForm.status || 'Select status' }}<ChevronDown class="ms-3"
+                                /></span>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem @click="editForm.status = NoteStatus.OPEN">Open</DropdownMenuItem>
@@ -116,7 +120,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { EditForm, NoteStatus, NoteType } from '@/types/note';
 import { router } from '@inertiajs/vue3';
 import axios from 'axios';
-import { UserPen } from 'lucide-vue-next';
+import { ChevronDown, UserPen } from 'lucide-vue-next';
 import { defineExpose, ref } from 'vue';
 
 const confirmModalRef = ref<InstanceType<typeof ConfirmModal> | null>(null);
@@ -183,6 +187,7 @@ const deleteNote = async (_id: number) => {
 };
 
 const show = async (_note: any) => {
+    cancelEdit();
     showModal.value = true;
     isLoading.value = true;
     note.value = _note;

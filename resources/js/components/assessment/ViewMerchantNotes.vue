@@ -135,7 +135,6 @@
     <MessagePrompt ref="messagePromptRef" />
 </template>
 
-<!-- MyDialog.vue -->
 <script setup lang="ts">
 import AddNote from '@/components/assessment/AddNote.vue';
 import ConfirmModal from '@/components/assessment/ConfirmModal.vue';

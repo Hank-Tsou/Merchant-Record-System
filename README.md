@@ -20,8 +20,8 @@
 
 ### Built With
 
-* [![Vue][Vue.js]][Vue-url]
 * [![Laravel][Laravel.com]][Laravel-url]
+* [![Vue][Vue.js]][Vue-url]
 * [![TailwindCSS][TailwindCSS.com]][TailwindCSS-url]
 * [![MySQL][MySQL.com]][MySQL-url]
 * [![Docker][Docker.com]][Docker-url]

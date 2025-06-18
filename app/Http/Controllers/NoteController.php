@@ -43,7 +43,7 @@ class NoteController extends Controller
             $query->whereDate('created_at', '<=', $request->input('date.end'));
         }
 
-        $notes = NoteResource::collection($query->paginate(10)->withQueryString());
+        $notes = NoteResource::collection($query->orderBy('id', 'desc')->paginate(10)->withQueryString());
         $creators = User::whereHas('notes')
             ->select('id', 'name')
             ->get()

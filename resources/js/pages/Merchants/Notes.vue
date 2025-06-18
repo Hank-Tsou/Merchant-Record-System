@@ -70,21 +70,21 @@
                             :total="props.notes.meta.total"
                             :default-page="props.notes.meta.current_page"
                         >
-                            <PaginationContent v-slot="{ items }">
+                            <PaginationContent v-slot="{}">
                                 <Link v-if="props.notes.links.prev" :href="props.notes.links.prev" preserve-scroll>
-                                    <PaginationPrevious />
+                                    <PaginationPrevious class="cursor-pointer" />
                                 </Link>
 
                                 <template v-for="(link, index) in props.notes.meta.links" :key="index">
                                     <Link v-if="Number(link.label)" :href="link.url" preserve-scroll>
-                                        <PaginationItem :value="Number(link.label)" :is-active="link.active">
+                                        <PaginationItem class="cursor-pointer" :value="Number(link.label)" :is-active="link.active">
                                             {{ link.label }}
                                         </PaginationItem>
                                     </Link>
                                 </template>
 
                                 <Link v-if="props.notes.links.next" :href="props.notes.links.next" preserve-scroll>
-                                    <PaginationNext />
+                                    <PaginationNext class="cursor-pointer" />
                                 </Link>
                             </PaginationContent>
                         </Pagination>
