@@ -7,7 +7,7 @@
             </DialogHeader>
 
             <!-- Scrollable notes container -->
-            <div class="mx-auto max-w-xl flex-1 overflow-y-auto p-4">
+            <div class="mx-auto w-full overflow-y-auto p-4">
                 <div class="mb-4 flex items-center justify-between">
                     <div class="flex items-center space-x-3">
                         <!--------------->
@@ -69,14 +69,12 @@
                 <!---------------->
                 <!-- Note Title -->
                 <!---------------->
-                <div class="mb-4">
-                    <div v-if="editNote" class="w-100%">
-                        <Input v-model="editForm.title" />
-                    </div>
-                    <div v-else class="mb-4 flex items-center justify-between">
-                        <h3 class="text-lg font-semibold text-gray-800">{{ note.title }}</h3>
-                        <span class="text-sm text-gray-500">Last Update: {{ note.updated_at }}</span>
-                    </div>
+                <div v-if="editNote" class="w-100% mb-4">
+                    <Input v-model="editForm.title" />
+                </div>
+                <div v-else class="mb-4 flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-800">{{ note.title }}</h3>
+                    <span class="text-sm text-gray-500">Last Update: {{ note.updated_at }}</span>
                 </div>
 
                 <!---------------->
@@ -86,6 +84,9 @@
                     <Textarea v-model="editForm.body" class="w-full rounded border px-2 py-1" rows="4"></Textarea>
                 </div>
                 <p v-else class="mb-4 text-gray-600">{{ note.body }}</p>
+                <p v-if="editNote && formError" class="mb-4 rounded bg-red-100 px-3 py-2 text-center text-sm text-red-700">
+                    All fields are required!
+                </p>
 
                 <!------------------>
                 <!-- Button Group -->
