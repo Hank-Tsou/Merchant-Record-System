@@ -2,15 +2,16 @@
 
 <div align="center">
 
-<h3 align="center">Best-README-Template</h3>
+<h3 align="center">Merchant Note Project</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
     <br />
     <a href="https://fluttering-mountain-f82.notion.site/Assessment-Documentation-213c56aa362b80c29dd5ce69e6498bf0"><strong>Explore the documentation »</strong></a>
     <br />
     <br />
-    <a href="https://merchant-record-system-main-xztxnx.laravel.cloud/login">View Demo on Laravel Cloud</a>
+    <a href="https://merchant-record-system-main-xztxnx.laravel.cloud/login">View Demo on Laravel Cloud </a>
+    <br />
+    The first visit may be slow due to starts on the free-tier Laravel Cloud environment.
   </p>
 </div>
 
@@ -120,8 +121,6 @@ Name: Hank Tsou <br />
 Email: hankytsou@gmail.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
