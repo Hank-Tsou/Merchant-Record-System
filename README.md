@@ -65,7 +65,7 @@
    composer install
    ```
 5. (Optional) Docker-based Database Setup<br />
-   The docker-compose.yml file is located at: Merchant-Record-System / docker-compose.yml<br />
+   The `docker-compose.yml` file located at: `Merchant-Record-System/docker-compose.yml`<br />
    ```sh
    docker-compose up -d
    ```
@@ -76,7 +76,7 @@
 
 ### Configuration
 
-1. Environment Variables ( Copy .env.example to .env )
+1. Environment Variables ( Copy `.env.example` to `.env` )
    ```sh
    cp .env.example .env
    ```
@@ -84,7 +84,7 @@
    ```sh
    php artisan key:generate
    ```
-3. Update the .env file - database configuration
+3. (Optional) Update the `.env` file with your own database configuration
    ```js
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
