@@ -84,6 +84,7 @@ import { Creator, NoteFilters, NoteStatus, NoteType } from '@/types/note';
 import { router } from '@inertiajs/vue3';
 import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { Calendar as CalendarIcon, Search } from 'lucide-vue-next';
+import moment from 'moment';
 import { DateRange, DateValue } from 'reka-ui';
 import { reactive, type Ref, ref } from 'vue';
 
@@ -120,8 +121,8 @@ const search = () => {
             type: form.type || '',
             status: form.status || '',
             creator: form.creator || '',
-            start: dateRange.value.start ? parseDateValueToYMD(dateRange.value.start) : '',
-            end: dateRange.value.end ? parseDateValueToYMD(dateRange.value.end) : '',
+            start: dateRange.value.start ? moment(parseDateValueToYMD(dateRange.value.start)).utc().format('YYYY-MM-DD HH:MM:SS') : '',
+            end: dateRange.value.end ? moment(parseDateValueToYMD(dateRange.value.end)).utc().format('YYYY-MM-DD HH:MM:SS') : '',
         }),
     );
 };
@@ -146,7 +147,7 @@ function parseDateValueToYMD(date: DateValue | undefined): string | undefined {
     const m = String(date.month).padStart(2, '0');
     const d = String(date.day).padStart(2, '0');
 
-    return `${y}-${m}-${d}`;
+    return `${y}-${m}-${d} 00:00:00`;
 }
 
 function parseYMDToCalendarDate(dateStr: string): CalendarDate {
@@ -157,7 +158,4 @@ function parseYMDToCalendarDate(dateStr: string): CalendarDate {
 
     return new CalendarDate(year, month, day);
 }
-//
-// onMounted(() => {
-// });
 </script>

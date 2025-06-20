@@ -93,6 +93,7 @@ import { cn } from '@/lib/utils';
 import { NoteStatus, NoteType } from '@/types/note';
 import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { AlignJustify, Calendar as CalendarIcon, Search } from 'lucide-vue-next';
+import moment from 'moment/moment';
 import { DateRange, DateValue } from 'reka-ui';
 import { reactive, type Ref, ref } from 'vue';
 
@@ -125,8 +126,8 @@ const search = () => {
         search: form.search || '',
         type: form.type || '',
         status: form.status || '',
-        start: dateRange.value.start ? parseDateValueToYMD(dateRange.value.start) : '',
-        end: dateRange.value.end ? parseDateValueToYMD(dateRange.value.end) : '',
+        start: dateRange.value.start ? moment(parseDateValueToYMD(dateRange.value.start)).utc().format('YYYY-MM-DD HH:MM:SS') : '',
+        end: dateRange.value.end ? moment(parseDateValueToYMD(dateRange.value.end)).utc().format('YYYY-MM-DD HH:MM:SS') : '',
     });
     show.value = false;
 };
@@ -148,6 +149,6 @@ function parseDateValueToYMD(date: DateValue | undefined): string | undefined {
     const m = String(date.month).padStart(2, '0');
     const d = String(date.day).padStart(2, '0');
 
-    return `${y}-${m}-${d}`;
+    return `${y}-${m}-${d} 00:00:00`;
 }
 </script>
