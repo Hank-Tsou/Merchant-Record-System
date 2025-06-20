@@ -1,14 +1,28 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import { Check } from 'lucide-vue-next';
+import { computed, onMounted } from 'vue';
+import { toast } from 'vue-sonner';
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
         href: '/dashboard',
     },
 ];
+
+const page = usePage();
+const props = computed(() => page.props);
+
+onMounted(() => {
+    if (props.value.error) {
+        toast.warning('Oops! Something went wrong', {
+            description: props.value.error,
+        });
+    }
+});
 </script>
 
 <template>
