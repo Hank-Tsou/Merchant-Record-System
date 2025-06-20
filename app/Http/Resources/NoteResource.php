@@ -24,8 +24,8 @@ class NoteResource extends JsonResource
             'merchant'    => $this->whenLoaded('merchant', fn () => $this->merchant->name),
             'created_by'  => $this->whenLoaded('creator', fn () => $this->creator->name),
             'assigned_to' => $this->whenLoaded('assignee', fn () => $this->assignee->name),
-            'created_at'  => $this->created_at->toFormattedDateString(),
-            'updated_at'  => $this->updated_at->toFormattedDateString(),
+            'created_at'  => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at'  => $this->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }

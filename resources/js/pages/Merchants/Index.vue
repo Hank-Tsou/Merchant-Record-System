@@ -42,16 +42,16 @@
                 <TableRow>
                     <TableCell :colspan="7" class="text-center">
                         <Pagination
-                            :items-per-page="props.merchants.meta.per_page"
-                            :total="props.merchants.meta.total"
-                            :default-page="props.merchants.meta.current_page"
+                            :items-per-page="merchants.meta.per_page"
+                            :total="merchants.meta.total"
+                            :default-page="merchants.meta.current_page"
                         >
                             <PaginationContent v-slot="{}">
-                                <Link v-if="props.merchants.links.prev" :href="props.merchants.links.prev" preserve-scroll>
+                                <Link v-if="merchants.links.prev" :href="merchants.links.prev" preserve-scroll>
                                     <PaginationPrevious class="cursor-pointer" />
                                 </Link>
 
-                                <template v-for="(link, index) in props.merchants.meta.links" :key="index">
+                                <template v-for="(link, index) in merchants.meta.links" :key="index">
                                     <Link v-if="Number(link.label)" :href="link.url" preserve-scroll>
                                         <PaginationItem class="cursor-pointer" :value="Number(link.label)" :is-active="link.active">
                                             {{ link.label }}
@@ -59,7 +59,7 @@
                                     </Link>
                                 </template>
 
-                                <Link v-if="props.merchants.links.next" :href="props.merchants.links.next" preserve-scroll>
+                                <Link v-if="merchants.links.next" :href="merchants.links.next" preserve-scroll>
                                     <PaginationNext class="cursor-pointer" />
                                 </Link>
                             </PaginationContent>
@@ -85,6 +85,8 @@ import { IMerchantProps } from '@/types/merchant';
 import { Head, Link } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
 
+defineProps<IMerchantProps>();
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Merchant List',
@@ -93,7 +95,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const isLoading = ref(true);
-const props = defineProps<IMerchantProps>();
 const noteViewRef = ref<InstanceType<typeof ViewMerchantNotes> | null>(null);
 
 const viewNote = (merchantId: number) => {

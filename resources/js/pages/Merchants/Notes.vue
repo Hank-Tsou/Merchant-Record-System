@@ -55,7 +55,7 @@
                         </Badge></TableCell
                     >
                     <TableCell>{{ item.created_by }}</TableCell>
-                    <TableCell>{{ item.updated_at }}</TableCell>
+                    <TableCell><DisplayLocalTime :dateIsoString="item.updated_at" :format="'withoutSeconds'" /></TableCell>
                     <TableCell>
                         <Button class="cursor-pointer" variant="secondary" @click="viewNote(item)">View</Button>
                     </TableCell>
@@ -97,6 +97,7 @@
 </template>
 
 <script setup lang="ts">
+import DisplayLocalTime from '@/components/assessment/DisplayLocalTime.vue';
 import NoteFilter from '@/components/assessment/NoteFilter.vue';
 import ViewNotes from '@/components/assessment/ViewNotes.vue';
 import { Badge } from '@/components/ui/badge';

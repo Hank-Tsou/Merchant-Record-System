@@ -163,13 +163,13 @@ const saveEdit = async (_note: any) => {
 
     try {
         await axios.put(`/notes/${_note.id}`, editForm.value);
-    } catch (err) {
-        messagePromptRef.value?.show(undefined, err.response?.data?.message);
-    } finally {
         _note.title = editForm.value.title;
         _note.body = editForm.value.body;
         _note.type = editForm.value.type;
         _note.status = editForm.value.status;
+    } catch (err) {
+        messagePromptRef.value?.show(undefined, err.response?.data?.message);
+    } finally {
         editNote.value = false;
     }
 };

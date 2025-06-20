@@ -93,7 +93,9 @@
                         </div>
                         <div v-else class="mb-4 flex items-center justify-between">
                             <h3 class="text-lg font-semibold text-gray-800">{{ note.title }}</h3>
-                            <span class="text-sm text-gray-500">Last Update: {{ note.updated_at }}</span>
+                            <span class="text-sm text-gray-500"
+                                >Last Update: <DisplayLocalTime :dateIsoString="note.updated_at" :format="'withoutSeconds'"
+                            /></span>
                         </div>
 
                         <!---------------->
@@ -138,6 +140,7 @@
 <script setup lang="ts">
 import AddNote from '@/components/assessment/AddNote.vue';
 import ConfirmModal from '@/components/assessment/ConfirmModal.vue';
+import DisplayLocalTime from '@/components/assessment/DisplayLocalTime.vue';
 import MessagePrompt from '@/components/assessment/MessagePrompt.vue';
 import NotePopFilter from '@/components/assessment/NotePopFilter.vue';
 import { Button } from '@/components/ui/button';
@@ -190,13 +193,13 @@ const saveEdit = async (note: any) => {
 
     try {
         await axios.put(`/notes/${note.id}`, editForm.value);
-    } catch (err) {
-        messagePromptRef.value?.show(undefined, err.response?.data?.message);
-    } finally {
         note.title = editForm.value.title;
         note.body = editForm.value.body;
         note.type = editForm.value.type;
         note.status = editForm.value.status;
+    } catch (err) {
+        messagePromptRef.value?.show(undefined, err.response?.data?.message);
+    } finally {
         editNoteIndex.value = -1;
     }
 };
