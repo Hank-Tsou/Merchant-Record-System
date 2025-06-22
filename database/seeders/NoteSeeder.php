@@ -20,9 +20,9 @@ class NoteSeeder extends Seeder
 
         foreach ($merchants as $merchant) {
             $noteCount = mt_rand(0, 5);
-            Note::factory()->count($noteCount)->create([
+            Note::factory()->count($noteCount)->create(fn () => [
                 'merchant_id' => $merchant->id,
-                'created_by' => $users->random()->id,
+                'created_by' => $users->random()->id, // ✅ random per note
                 'assigned_to' => rand(0, 1) ? $users->random()->id : null,
             ]);
         }
