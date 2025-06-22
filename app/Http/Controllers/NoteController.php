@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Note\DeleteNoteRequest;
 use App\Http\Requests\Note\FilterNoteRequest;
 use App\Http\Requests\Note\StoreNoteRequest;
 use App\Http\Requests\Note\UpdateNoteRequest;
@@ -79,27 +80,12 @@ class NoteController extends Controller
 
     public function update(UpdateNoteRequest $request, Note $note)
     {
-        try {
-            $this->authorize('update', $note);
-        } catch (AuthorizationException $e) {
-            return response()->json([
-                'message' => 'You are not allowed to update this note.'
-            ], 403);
-        }
         $note->update($request->validated());
         return new NoteResource($note);
     }
 
-    public function destroy(Note $note)
+    public function destroy(DeleteNoteRequest $request, Note $note)
     {
-        try {
-            $this->authorize('delete', $note);
-        } catch (AuthorizationException $e) {
-            return response()->json([
-                'message' => 'You are not allowed to delete this note.'
-            ], 403);
-        }
-
         $note->delete();
         return response()->noContent();
     }

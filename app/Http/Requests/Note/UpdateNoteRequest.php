@@ -4,6 +4,7 @@ namespace App\Http\Requests\Note;
 
 use App\Enums\NoteStatus;
 use App\Enums\NoteType;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -14,7 +15,9 @@ class UpdateNoteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        $note = $this->route('note');
+
+        return $note && $this->user()->can('update', $note);
     }
 
     /**
@@ -31,5 +34,10 @@ class UpdateNoteRequest extends FormRequest
             'status' => ['sometimes', Rule::in(array_column(NoteStatus::cases(), 'value'))],
             'assigned_to' => ['nullable', 'exists:users,id'],
         ];
+    }
+
+    public function failedAuthorization()
+    {
+        throw new AuthorizationException('You are not allowed to update this note.');
     }
 }
