@@ -40,23 +40,6 @@ class NoteController extends Controller
         return inertia("Merchants/Notes", ['notes' => $notes, 'creators' => $creators, 'filters' => $request->all()]);
     }
 
-    public function getMerchantNotes(FilterNoteRequest $request, Merchant $merchant)
-    {
-        $query = $merchant->notes()->with(['creator']);
-
-        $query->when($request->filled('search'), function ($q) use ($request) {
-            $q->where(function ($subQuery) use ($request) {
-                $subQuery->where('title', 'like', '%' . $request->search . '%')
-                    ->orWhere('body', 'like', '%' . $request->search . '%');
-            });
-        })->when($request->filled('type'), fn ($q) => $q->where('type', $request->type))
-            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
-            ->when($request->filled('start'), fn ($q) => $q->where('updated_at', '>=', $request->input('start')))
-            ->when($request->filled('end'), fn ($q) => $q->where('updated_at', '<=', $request->input('end')));
-
-        return NoteResource::collection($query->latest()->get());
-    }
-
     public function show(Note $note)
     {
         return new NoteResource($note);
@@ -88,6 +71,40 @@ class NoteController extends Controller
     {
         $note->delete();
         return response()->noContent();
+    }
+
+    public function getMerchantNotes(FilterNoteRequest $request, Merchant $merchant)
+    {
+        $query = $merchant->notes()->with(['creator']);
+
+        $query->when($request->filled('search'), function ($q) use ($request) {
+            $q->where(function ($subQuery) use ($request) {
+                $subQuery->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('body', 'like', '%' . $request->search . '%');
+            });
+        })->when($request->filled('type'), fn ($q) => $q->where('type', $request->type))
+            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->when($request->filled('start'), fn ($q) => $q->where('updated_at', '>=', $request->input('start')))
+            ->when($request->filled('end'), fn ($q) => $q->where('updated_at', '<=', $request->input('end')));
+
+        return NoteResource::collection($query->latest()->get());
+    }
+
+    public function getUserNotes(FilterNoteRequest $request, User $user)
+    {
+        $query = $user->notes()->with(['merchant']);
+
+        $query->when($request->filled('search'), function ($q) use ($request) {
+            $q->where(function ($subQuery) use ($request) {
+                $subQuery->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('body', 'like', '%' . $request->search . '%');
+            });
+        })->when($request->filled('type'), fn ($q) => $q->where('type', $request->type))
+            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->when($request->filled('start'), fn ($q) => $q->where('updated_at', '>=', $request->input('start')))
+            ->when($request->filled('end'), fn ($q) => $q->where('updated_at', '<=', $request->input('end')));
+
+        return NoteResource::collection($query->latest()->get());
     }
 
 }

@@ -85,7 +85,7 @@ const editForm = ref<NewForm>({
 });
 
 const emits = defineEmits<{
-    (e: 'refresh', merchantId: number): void;
+    (e: 'refresh'): void;
 }>();
 
 const save = async () => {
@@ -101,7 +101,7 @@ const save = async () => {
     } catch (err) {
         console.error(err);
     } finally {
-        emits('refresh', editForm.value.merchantId);
+        emits('refresh');
         router.reload();
         showModal.value = false;
     }

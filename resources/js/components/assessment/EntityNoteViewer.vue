@@ -5,7 +5,7 @@
                 <DialogTitle>Merchant Note List</DialogTitle>
                 <div class="flex items-center justify-between">
                     <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
-                    <NotePopFilter @search="search"></NotePopFilter>
+                    <NotePopFilter @search="getViewNotes"></NotePopFilter>
                 </div>
             </DialogHeader>
 
@@ -81,7 +81,7 @@
 
                             <div class="flex items-center">
                                 <UserPen :size="12" class="h-5 w-5 rounded-full bg-gray-200" />
-                                <span class="ms-3 flex text-sm">{{ note.created_by }}</span>
+                                <span class="ms-3 flex text-sm">{{ note.created_by ?? note.merchant }}</span>
                             </div>
                         </div>
 
@@ -126,13 +126,13 @@
                 </ul>
             </div>
 
-            <DialogFooter class="flex-shrink-0">
+            <DialogFooter v-if="showAddNoteBtn" class="flex-shrink-0">
                 <Button class="cursor-pointer" @click="showAddNote()">Add Note</Button>
             </DialogFooter>
         </DialogContent>
     </Dialog>
 
-    <AddNote ref="addNoteRef" @refresh="show"></AddNote>
+    <AddNote ref="addNoteRef" @refresh="getViewNotes"></AddNote>
     <ConfirmModal ref="confirmModalRef" @confirm="deleteNote"></ConfirmModal>
     <MessagePrompt ref="messagePromptRef" />
 </template>
@@ -154,6 +154,15 @@ import axios from 'axios';
 import { ChevronDown, UserPen } from 'lucide-vue-next';
 import { defineExpose, ref } from 'vue';
 
+defineProps<{
+    notes: Note[];
+    showAddButton: boolean;
+}>();
+
+const emits = defineEmits<{
+    (e: 'getViewNotes', id: number, data?: any): void;
+}>();
+
 const addNoteRef = ref<InstanceType<typeof AddNote> | null>(null);
 const confirmModalRef = ref<InstanceType<typeof ConfirmModal> | null>(null);
 const messagePromptRef = ref<InstanceType<typeof MessagePrompt> | null>(null);
@@ -162,7 +171,9 @@ const isLoading = ref(false);
 const formError = ref(false);
 const notes = ref<Note[]>([]);
 const editNoteIndex = ref(-1);
-const merchantId = ref(-1);
+const showAddNoteBtn = ref(true);
+
+const id = ref(-1);
 const editForm = ref<EditForm>({
     title: '',
     body: '',
@@ -217,40 +228,25 @@ const deleteNote = async (noteId: number) => {
 };
 
 const showAddNote = () => {
-    addNoteRef.value?.show(merchantId.value);
+    addNoteRef.value?.show(id.value);
 };
 
 const showConfirm = (note: any) => {
     confirmModalRef.value?.show('Are you sure you want to delete.', note.title, note.id);
 };
 
-const search = async (_data: any) => {
-    try {
-        const response = await axios.get(`/merchants/${merchantId.value}/notes`, {
-            params: _data,
-        });
-        notes.value = response.data.data;
-    } catch (err) {
-        messagePromptRef.value?.show(undefined, err.response?.data?.message);
-    } finally {
-        isLoading.value = false;
-    }
+const getViewNotes = (data?: any) => {
+    emits('getViewNotes', id.value, data);
 };
 
-const show = async (_merchantId: number) => {
+const show = async (_id: number, data: Note[], _showAddNoteBtn: boolean) => {
     showModal.value = true;
     isLoading.value = true;
+    showAddNoteBtn.value = _showAddNoteBtn;
     cancelEdit();
 
-    merchantId.value = _merchantId;
-    try {
-        const response = await axios.get(`/merchants/${_merchantId}/notes`);
-        notes.value = response.data.data;
-    } catch (err) {
-        messagePromptRef.value?.show(undefined, err.response?.data?.message);
-    } finally {
-        isLoading.value = false;
-    }
+    id.value = _id;
+    notes.value = data;
 };
 
 defineExpose({

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,8 +15,15 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+    // User
+    Route::get('users', [UserController::class, 'index'])->name('user.index');
+
+    // Merchant
     Route::get('merchant', [MerchantController::class, 'index'])->name('merchantProfile');
+
+    // Note
     Route::get('/merchants/{merchant}/notes', [NoteController::class, 'getMerchantNotes'])->name('getMerchantNotes');
+    Route::get('/users/{user}/notes', [NoteController::class, 'getUserNotes'])->name('getUserNotes');
     Route::apiResource('notes', NoteController::class);
 });
 
