@@ -154,11 +154,6 @@ import axios from 'axios';
 import { ChevronDown, UserPen } from 'lucide-vue-next';
 import { defineExpose, ref } from 'vue';
 
-defineProps<{
-    notes: Note[];
-    showAddButton: boolean;
-}>();
-
 const emits = defineEmits<{
     (e: 'getViewNotes', id: number, data?: any): void;
 }>();
