@@ -33,6 +33,7 @@ export interface Note {
     body: string;
     status: NoteStatus;
     type: NoteType;
+    assigned_to: string;
     created_by: string;
     updated_at: string;
     merchant: string;

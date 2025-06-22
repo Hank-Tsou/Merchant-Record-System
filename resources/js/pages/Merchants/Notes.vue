@@ -12,6 +12,7 @@
                     <TableHead>Title</TableHead>
                     <TableHead>Type</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Assign To</TableHead>
                     <TableHead>Create By</TableHead>
                     <TableHead>Update At</TableHead>
                     <TableHead>Action</TableHead>
@@ -54,10 +55,12 @@
                             {{ item.status }}
                         </Badge></TableCell
                     >
+                    <TableCell>{{ item.assigned_to }}</TableCell>
                     <TableCell>{{ item.created_by }}</TableCell>
                     <TableCell><DisplayLocalTime :dateIsoString="item.updated_at" :format="'withoutSeconds'" /></TableCell>
                     <TableCell>
                         <Button class="cursor-pointer" variant="secondary" @click="viewNote(item)">View</Button>
+                        <Button class="ms-3 cursor-pointer" variant="secondary" @click="viewAssignNote(item.id)">Assign</Button>
                     </TableCell>
                 </TableRow>
             </TableBody>
@@ -94,11 +97,13 @@
         </Table>
     </AppLayout>
     <ViewNotes ref="viewNoteRef"></ViewNotes>
+    <NoteUserAssigner ref="noteUserAssignerRef" />
 </template>
 
 <script setup lang="ts">
 import DisplayLocalTime from '@/components/assessment/DisplayLocalTime.vue';
 import NoteFilter from '@/components/assessment/NoteFilter.vue';
+import NoteUserAssigner from '@/components/assessment/NoteUserAssigner.vue';
 import ViewNotes from '@/components/assessment/ViewNotes.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -120,9 +125,14 @@ const breadcrumbs: BreadcrumbItem[] = [
 const props = defineProps<NoteList>();
 const isLoading = ref(true);
 const viewNoteRef = ref<InstanceType<typeof ViewNotes> | null>(null);
+const noteUserAssignerRef = ref<InstanceType<typeof NoteUserAssigner> | null>(null);
 
 const viewNote = (note: any) => {
     viewNoteRef.value?.show(note);
+};
+
+const viewAssignNote = (id: number) => {
+    noteUserAssignerRef.value?.show(id, props.creators);
 };
 
 onMounted(() => {

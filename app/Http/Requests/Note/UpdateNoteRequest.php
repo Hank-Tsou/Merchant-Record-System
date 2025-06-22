@@ -28,8 +28,8 @@ class UpdateNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'body' => ['required', 'string'],
+            'title' => ['sometimes','required', 'string', 'max:255'],
+            'body' => ['sometimes','required', 'string'],
             'type' => ['sometimes', Rule::in(array_column(NoteType::cases(), 'value'))],
             'status' => ['sometimes', Rule::in(array_column(NoteStatus::cases(), 'value'))],
             'assigned_to' => ['nullable', 'exists:users,id'],
