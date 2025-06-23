@@ -101,8 +101,8 @@ const form = reactive({
     type: props.filters.type || '',
     status: props.filters.status || '',
     creator: props.filters.creator || '',
-    start: props.filters.start ? parseYMDToCalendarDate(props.filters.start) : today.subtract({ days: 7 }),
-    end: props.filters.end ? parseYMDToCalendarDate(props.filters.end) : today,
+    start: props.filters.start ? parseYMDToCalendarDate(props.filters.start) : undefined,
+    end: props.filters.end ? parseYMDToCalendarDate(props.filters.end) : undefined,
 });
 
 const df = new DateFormatter('en-US', {

@@ -91,7 +91,7 @@ import { RangeCalendar } from '@/components/ui/range-calendar';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { NoteStatus, NoteType } from '@/types/note';
-import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
+import { DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { AlignJustify, Calendar as CalendarIcon, Search } from 'lucide-vue-next';
 import moment from 'moment/moment';
 import { DateRange, DateValue } from 'reka-ui';
@@ -102,7 +102,6 @@ const emits = defineEmits<{
 }>();
 
 const now = new Date();
-const today = new CalendarDate(now.getFullYear(), now.getMonth() + 1, now.getDate());
 const show = ref(false);
 const form = reactive({
     search: '',
@@ -117,8 +116,8 @@ const df = new DateFormatter('en-US', {
 });
 
 const dateRange = ref({
-    start: today.subtract({ days: 7 }),
-    end: today,
+    start: undefined,
+    end: undefined,
 }) as Ref<DateRange>;
 
 const search = () => {
